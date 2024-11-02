@@ -34,6 +34,11 @@ public class OverlayInstructionsManager<InstructionType: InstructionOverlayType>
     // MARK: Internal
     
     internal func addFrame(for type: InstructionType, frame: CGRect) {
+        if instructionsCollection.isEmpty {
+            // In case of updates, instructionsCollection should be
+            // populated in order to assign the new frame values
+            instructionsCollection = instructionsOrder
+        }
         let index = instructionsCollection.firstIndex(where: { $0.instructionType == type })
         guard let index, index < instructionsCollection.count else { return }
         instructionsCollection[index].cutoutFrame = frame
