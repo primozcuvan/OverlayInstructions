@@ -23,6 +23,10 @@ struct InstructionOverlayModifier<InstructionType: InstructionOverlayType>: View
                         // Collect the frame for the current instruction type
                         frameCollector.addFrame(for: instructionType, frame: frame)
                     }
+                    .onChange(of: geometry.frame(in: .global)) { _, newFrame in
+                        // Collect the frame for the current instruction type
+                        frameCollector.addFrame(for: instructionType, frame: newFrame)
+                    }
                 }
             )
     }
